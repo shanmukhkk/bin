@@ -1,3 +1,145 @@
+
+Agile (20 Questions)
+What are Agile principles?
+Difference between Scrum and Kanban.
+What are user stories and story points?
+Explain sprint planning, daily stand‑ups, retrospectives.
+What is a product backlog vs sprint backlog?
+Role of Scrum Master vs Product Owner.
+How do you handle scope creep in Agile?
+What is velocity?
+How do you measure success in Agile projects?
+Explain continuous improvement.
+🌱 Core Java (30 Questions)
+Difference between == and .equals().
+Explain OOP concepts.
+What is polymorphism?
+Difference between abstract class and interface.
+What is the difference between HashMap and Hashtable?
+Explain Java memory model.
+What are checked vs unchecked exceptions?
+Explain final, finally, finalize.
+What is multithreading?
+Difference between StringBuilder and StringBuffer.
+🏗️ SOLID Principles (10 Questions)
+What does SOLID stand for?
+Explain Single Responsibility Principle with example.
+Open/Closed Principle in practice.
+Liskov Substitution Principle.
+Interface Segregation Principle.
+Dependency Inversion Principle.
+🌐 Spring Framework (30 Questions)
+What is IoC?
+Difference between BeanFactory and ApplicationContext.
+Explain bean scopes.
+What is AOP?
+Difference between @Component, @Service, @Repository.
+How does transaction management work?
+What is @Autowired?
+Explain @Configuration and @Bean.
+Difference between field, setter, and constructor injection.
+How do you handle exceptions in Spring MVC?
+🚀 Spring Boot (30 Questions)
+What is Spring Boot?
+Advantages over Spring.
+What is @SpringBootApplication?
+Explain auto‑configuration.
+What are starters?
+Difference between application.properties and application.yml.
+How do you configure profiles?
+What is Spring Boot Actuator?
+How do you embed Tomcat?
+How do you secure REST APIs in Spring Boot?
+🧩 Microservices (30 Questions)
+What are microservices?
+Difference between monolith and microservices.
+What is service discovery?
+Explain Eureka.
+What is API Gateway?
+How do you implement centralized config?
+What is Spring Cloud Bus?
+Explain Feign Client.
+What is Circuit Breaker?
+How do you handle inter‑service communication?
+🔧 Git (20 Questions)
+What is Git?
+Difference between Git and GitHub.
+Explain branching strategies.
+What is git rebase vs git merge?
+How do you resolve conflicts?
+What is a pull request?
+Difference between git fetch and git pull.
+What is Git stash?
+Explain Git tags.
+How do you revert a commit?
+⚙️ Maven (10 Questions)
+What is Maven?
+Difference between Maven and Gradle.
+What is a POM file?
+Explain dependency management.
+What are Maven build phases?
+What is a snapshot version?
+How do you create a multi‑module project?
+What is Maven Central?
+How do you exclude transitive dependencies?
+Difference between compile, provided, runtime scopes.
+📝 JUnit & Mockito (20 Questions)
+What is JUnit?
+Difference between JUnit 4 and JUnit 5.
+What is a test suite?
+How do you write parameterized tests?
+What is Mockito?
+Difference between @Mock and @InjectMocks.
+How do you stub methods?
+What is verify() in Mockito?
+How do you mock static methods?
+How do you test exceptions?
+🛠️ Lombok (10 Questions)
+What is Lombok?
+Advantages of using Lombok.
+What does @Data do?
+Difference between @Getter/@Setter and @Data.
+What is @Builder?
+How does Lombok reduce boilerplate?
+What is @Slf4j?
+How do you enable Lombok in IDE?
+What is @Value?
+What are potential drawbacks of Lombok?
+📊 SLF4J & Logging (10 Questions)
+What is SLF4J?
+Difference between SLF4J and Log4j.
+Why use logging abstraction?
+How do you configure logging in Spring Boot?
+What is MDC in logging?
+How do you log exceptions?
+Difference between info, debug, error.
+How do you externalize logging configs?
+What is structured logging?
+How do you integrate SLF4J with Logback?
+🧮 Hibernate & Spring Data JPA (30 Questions)
+What is Hibernate?
+Difference between Hibernate and JPA.
+What is ORM?
+Explain entity lifecycle.
+What is the difference between Session and EntityManager?
+What are lazy vs eager fetch types?
+Explain caching in Hibernate.
+What is Criteria API?
+Difference between native query and JPQL.
+How do you handle transactions in JPA?
+📈 SonarQube (10 Questions)
+What is SonarQube?
+How does it help in code quality?
+What are code smells?
+What is cyclomatic complexity?
+How do you integrate SonarQube with Maven?
+What is a quality gate?
+How do you configure rules?
+Difference between bug, vulnerability, and code smell.
+How do you analyze coverage?
+What are common SonarQube plugins?
+ 
+
 More Questions
 ----------------------------------
  
