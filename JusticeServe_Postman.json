@@ -1,0 +1,1050 @@
+{
+  "info": {
+    "name": "JusticeServe API — Complete Collection",
+    "_postman_id": "justiceserve-2025",
+    "description": "All API endpoints for JusticeServe Legal Case & Court Management System.\n\nBase URL: http://localhost:8080\n\nSetup:\n1. Run the backend: mvn spring-boot:run\n2. Insert admin via SQL, then login to get admin token\n3. Set the token in the collection variable 'adminToken'\n4. Register users, they all start as CITIZEN\n5. Admin changes roles via PATCH /api/users/{id}/change-role",
+    "schema": "https://schema.getpostman.com/json/collection/v2.1.0/collection.json"
+  },
+  "variable": [
+    { "key": "baseUrl",       "value": "http://localhost:8080" },
+    { "key": "adminToken",    "value": "PASTE_ADMIN_JWT_HERE" },
+    { "key": "citizenToken",  "value": "PASTE_CITIZEN_JWT_HERE" },
+    { "key": "lawyerToken",   "value": "PASTE_LAWYER_JWT_HERE" },
+    { "key": "judgeToken",    "value": "PASTE_JUDGE_JWT_HERE" },
+    { "key": "clerkToken",    "value": "PASTE_CLERK_JWT_HERE" },
+    { "key": "userId",        "value": "1" },
+    { "key": "citizenId",     "value": "1" },
+    { "key": "caseId",        "value": "1" },
+    { "key": "hearingId",     "value": "1" },
+    { "key": "judgmentId",    "value": "1" },
+    { "key": "documentId",    "value": "1" }
+  ],
+  "item": [
+
+    {
+      "name": "01 — Authentication",
+      "item": [
+        {
+          "name": "Register (all users start as CITIZEN)",
+          "request": {
+            "method": "POST",
+            "header": [{ "key": "Content-Type", "value": "application/json" }],
+            "url": { "raw": "{{baseUrl}}/api/auth/register", "host": ["{{baseUrl}}"], "path": ["api","auth","register"] },
+            "body": {
+              "mode": "raw",
+              "raw": "{\n  \"name\": \"John Citizen\",\n  \"email\": \"john@example.com\",\n  \"password\": \"password123\",\n  \"phone\": \"9999999999\"\n}"
+            },
+            "description": "Register a new user. Role is always CITIZEN by default. Admin must change role after registration.\n\nNO role field needed — if you send role it is ignored."
+          }
+        },
+        {
+          "name": "Register — Lawyer (starts as CITIZEN, admin promotes)",
+          "request": {
+            "method": "POST",
+            "header": [{ "key": "Content-Type", "value": "application/json" }],
+            "url": { "raw": "{{baseUrl}}/api/auth/register", "host": ["{{baseUrl}}"], "path": ["api","auth","register"] },
+            "body": {
+              "mode": "raw",
+              "raw": "{\n  \"name\": \"Rahul Sharma\",\n  \"email\": \"rahul.lawyer@example.com\",\n  \"password\": \"password123\",\n  \"phone\": \"8888888888\"\n}"
+            },
+            "description": "Register a lawyer. They start as CITIZEN. Admin then uses PATCH /api/users/{id}/change-role to make them LAWYER."
+          }
+        },
+        {
+          "name": "Register — Judge (starts as CITIZEN)",
+          "request": {
+            "method": "POST",
+            "header": [{ "key": "Content-Type", "value": "application/json" }],
+            "url": { "raw": "{{baseUrl}}/api/auth/register", "host": ["{{baseUrl}}"], "path": ["api","auth","register"] },
+            "body": {
+              "mode": "raw",
+              "raw": "{\n  \"name\": \"Justice Ramesh Kumar\",\n  \"email\": \"judge@example.com\",\n  \"password\": \"password123\",\n  \"phone\": \"7777777777\"\n}"
+            }
+          }
+        },
+        {
+          "name": "Register — Clerk (starts as CITIZEN)",
+          "request": {
+            "method": "POST",
+            "header": [{ "key": "Content-Type", "value": "application/json" }],
+            "url": { "raw": "{{baseUrl}}/api/auth/register", "host": ["{{baseUrl}}"], "path": ["api","auth","register"] },
+            "body": {
+              "mode": "raw",
+              "raw": "{\n  \"name\": \"Clerk Priya\",\n  \"email\": \"clerk@example.com\",\n  \"password\": \"password123\",\n  \"phone\": \"6666666666\"\n}"
+            }
+          }
+        },
+        {
+          "name": "Login — Admin",
+          "request": {
+            "method": "POST",
+            "header": [{ "key": "Content-Type", "value": "application/json" }],
+            "url": { "raw": "{{baseUrl}}/api/auth/login", "host": ["{{baseUrl}}"], "path": ["api","auth","login"] },
+            "body": {
+              "mode": "raw",
+              "raw": "{\n  \"email\": \"admin@justiceserve.com\",\n  \"password\": \"admin@123\"\n}"
+            },
+            "description": "Admin is created via SQL INSERT. Copy the token from response and paste into collection variable 'adminToken'."
+          }
+        },
+        {
+          "name": "Login — Citizen",
+          "request": {
+            "method": "POST",
+            "header": [{ "key": "Content-Type", "value": "application/json" }],
+            "url": { "raw": "{{baseUrl}}/api/auth/login", "host": ["{{baseUrl}}"], "path": ["api","auth","login"] },
+            "body": {
+              "mode": "raw",
+              "raw": "{\n  \"email\": \"john@example.com\",\n  \"password\": \"password123\"\n}"
+            }
+          }
+        },
+        {
+          "name": "Login — Lawyer",
+          "request": {
+            "method": "POST",
+            "header": [{ "key": "Content-Type", "value": "application/json" }],
+            "url": { "raw": "{{baseUrl}}/api/auth/login", "host": ["{{baseUrl}}"], "path": ["api","auth","login"] },
+            "body": {
+              "mode": "raw",
+              "raw": "{\n  \"email\": \"rahul.lawyer@example.com\",\n  \"password\": \"password123\"\n}"
+            }
+          }
+        },
+        {
+          "name": "Login — Judge",
+          "request": {
+            "method": "POST",
+            "header": [{ "key": "Content-Type", "value": "application/json" }],
+            "url": { "raw": "{{baseUrl}}/api/auth/login", "host": ["{{baseUrl}}"], "path": ["api","auth","login"] },
+            "body": {
+              "mode": "raw",
+              "raw": "{\n  \"email\": \"judge@example.com\",\n  \"password\": \"password123\"\n}"
+            }
+          }
+        },
+        {
+          "name": "Login — Clerk",
+          "request": {
+            "method": "POST",
+            "header": [{ "key": "Content-Type", "value": "application/json" }],
+            "url": { "raw": "{{baseUrl}}/api/auth/login", "host": ["{{baseUrl}}"], "path": ["api","auth","login"] },
+            "body": {
+              "mode": "raw",
+              "raw": "{\n  \"email\": \"clerk@example.com\",\n  \"password\": \"password123\"\n}"
+            }
+          }
+        }
+      ]
+    },
+
+    {
+      "name": "02 — User Management (Admin only)",
+      "item": [
+        {
+          "name": "Get All Users",
+          "request": {
+            "method": "GET",
+            "header": [{ "key": "Authorization", "value": "Bearer {{adminToken}}" }],
+            "url": { "raw": "{{baseUrl}}/api/users", "host": ["{{baseUrl}}"], "path": ["api","users"] },
+            "description": "Returns all users. Admin only."
+          }
+        },
+        {
+          "name": "Get User By ID",
+          "request": {
+            "method": "GET",
+            "header": [{ "key": "Authorization", "value": "Bearer {{adminToken}}" }],
+            "url": { "raw": "{{baseUrl}}/api/users/{{userId}}", "host": ["{{baseUrl}}"], "path": ["api","users","{{userId}}"] }
+          }
+        },
+        {
+          "name": "Get Users By Role — LAWYER",
+          "request": {
+            "method": "GET",
+            "header": [{ "key": "Authorization", "value": "Bearer {{adminToken}}" }],
+            "url": { "raw": "{{baseUrl}}/api/users/role/LAWYER", "host": ["{{baseUrl}}"], "path": ["api","users","role","LAWYER"] },
+            "description": "Available roles: CITIZEN, LAWYER, JUDGE, CLERK, ADMIN, COMPLIANCE, AUDITOR"
+          }
+        },
+        {
+          "name": "Get Users By Role — JUDGE",
+          "request": {
+            "method": "GET",
+            "header": [{ "key": "Authorization", "value": "Bearer {{adminToken}}" }],
+            "url": { "raw": "{{baseUrl}}/api/users/role/JUDGE", "host": ["{{baseUrl}}"], "path": ["api","users","role","JUDGE"] }
+          }
+        },
+        {
+          "name": "Get Users By Role — CITIZEN",
+          "request": {
+            "method": "GET",
+            "header": [{ "key": "Authorization", "value": "Bearer {{adminToken}}" }],
+            "url": { "raw": "{{baseUrl}}/api/users/role/CITIZEN", "host": ["{{baseUrl}}"], "path": ["api","users","role","CITIZEN"] }
+          }
+        },
+        {
+          "name": "Change User Role → LAWYER",
+          "request": {
+            "method": "PATCH",
+            "header": [
+              { "key": "Authorization", "value": "Bearer {{adminToken}}" },
+              { "key": "Content-Type", "value": "application/json" }
+            ],
+            "url": { "raw": "{{baseUrl}}/api/users/{{userId}}/change-role", "host": ["{{baseUrl}}"], "path": ["api","users","{{userId}}","change-role"] },
+            "body": {
+              "mode": "raw",
+              "raw": "{\n  \"role\": \"LAWYER\"\n}"
+            },
+            "description": "Change a user's role. User must log out and log back in after this.\n\nAvailable roles:\n- CITIZEN\n- LAWYER\n- JUDGE\n- CLERK\n- ADMIN\n- COMPLIANCE\n- AUDITOR"
+          }
+        },
+        {
+          "name": "Change User Role → JUDGE",
+          "request": {
+            "method": "PATCH",
+            "header": [
+              { "key": "Authorization", "value": "Bearer {{adminToken}}" },
+              { "key": "Content-Type", "value": "application/json" }
+            ],
+            "url": { "raw": "{{baseUrl}}/api/users/{{userId}}/change-role", "host": ["{{baseUrl}}"], "path": ["api","users","{{userId}}","change-role"] },
+            "body": { "mode": "raw", "raw": "{\n  \"role\": \"JUDGE\"\n}" }
+          }
+        },
+        {
+          "name": "Change User Role → CLERK",
+          "request": {
+            "method": "PATCH",
+            "header": [
+              { "key": "Authorization", "value": "Bearer {{adminToken}}" },
+              { "key": "Content-Type", "value": "application/json" }
+            ],
+            "url": { "raw": "{{baseUrl}}/api/users/{{userId}}/change-role", "host": ["{{baseUrl}}"], "path": ["api","users","{{userId}}","change-role"] },
+            "body": { "mode": "raw", "raw": "{\n  \"role\": \"CLERK\"\n}" }
+          }
+        },
+        {
+          "name": "Change User Role → COMPLIANCE",
+          "request": {
+            "method": "PATCH",
+            "header": [
+              { "key": "Authorization", "value": "Bearer {{adminToken}}" },
+              { "key": "Content-Type", "value": "application/json" }
+            ],
+            "url": { "raw": "{{baseUrl}}/api/users/{{userId}}/change-role", "host": ["{{baseUrl}}"], "path": ["api","users","{{userId}}","change-role"] },
+            "body": { "mode": "raw", "raw": "{\n  \"role\": \"COMPLIANCE\"\n}" }
+          }
+        },
+        {
+          "name": "Change User Role → AUDITOR",
+          "request": {
+            "method": "PATCH",
+            "header": [
+              { "key": "Authorization", "value": "Bearer {{adminToken}}" },
+              { "key": "Content-Type", "value": "application/json" }
+            ],
+            "url": { "raw": "{{baseUrl}}/api/users/{{userId}}/change-role", "host": ["{{baseUrl}}"], "path": ["api","users","{{userId}}","change-role"] },
+            "body": { "mode": "raw", "raw": "{\n  \"role\": \"AUDITOR\"\n}" }
+          }
+        },
+        {
+          "name": "Change User Role → CITIZEN (demote)",
+          "request": {
+            "method": "PATCH",
+            "header": [
+              { "key": "Authorization", "value": "Bearer {{adminToken}}" },
+              { "key": "Content-Type", "value": "application/json" }
+            ],
+            "url": { "raw": "{{baseUrl}}/api/users/{{userId}}/change-role", "host": ["{{baseUrl}}"], "path": ["api","users","{{userId}}","change-role"] },
+            "body": { "mode": "raw", "raw": "{\n  \"role\": \"CITIZEN\"\n}" }
+          }
+        },
+        {
+          "name": "Deactivate User",
+          "request": {
+            "method": "PATCH",
+            "header": [{ "key": "Authorization", "value": "Bearer {{adminToken}}" }],
+            "url": {
+              "raw": "{{baseUrl}}/api/users/{{userId}}/status?status=INACTIVE",
+              "host": ["{{baseUrl}}"], "path": ["api","users","{{userId}}","status"],
+              "query": [{ "key": "status", "value": "INACTIVE" }]
+            }
+          }
+        },
+        {
+          "name": "Activate User",
+          "request": {
+            "method": "PATCH",
+            "header": [{ "key": "Authorization", "value": "Bearer {{adminToken}}" }],
+            "url": {
+              "raw": "{{baseUrl}}/api/users/{{userId}}/status?status=ACTIVE",
+              "host": ["{{baseUrl}}"], "path": ["api","users","{{userId}}","status"],
+              "query": [{ "key": "status", "value": "ACTIVE" }]
+            }
+          }
+        },
+        {
+          "name": "Delete User",
+          "request": {
+            "method": "DELETE",
+            "header": [{ "key": "Authorization", "value": "Bearer {{adminToken}}" }],
+            "url": { "raw": "{{baseUrl}}/api/users/{{userId}}", "host": ["{{baseUrl}}"], "path": ["api","users","{{userId}}"] }
+          }
+        }
+      ]
+    },
+
+    {
+      "name": "03 — Citizen Profile",
+      "item": [
+        {
+          "name": "Create Citizen Profile",
+          "request": {
+            "method": "POST",
+            "header": [
+              { "key": "Authorization", "value": "Bearer {{citizenToken}}" },
+              { "key": "Content-Type", "value": "application/json" }
+            ],
+            "url": { "raw": "{{baseUrl}}/api/citizens", "host": ["{{baseUrl}}"], "path": ["api","citizens"] },
+            "body": {
+              "mode": "raw",
+              "raw": "{\n  \"userId\": 2,\n  \"name\": \"John Citizen\",\n  \"dob\": \"1990-05-15\",\n  \"gender\": \"Male\",\n  \"address\": \"123 Main Street, Chennai, Tamil Nadu\",\n  \"contactInfo\": \"+91 9999999999\"\n}"
+            }
+          }
+        },
+        {
+          "name": "Get All Citizens",
+          "request": {
+            "method": "GET",
+            "header": [{ "key": "Authorization", "value": "Bearer {{adminToken}}" }],
+            "url": { "raw": "{{baseUrl}}/api/citizens", "host": ["{{baseUrl}}"], "path": ["api","citizens"] }
+          }
+        },
+        {
+          "name": "Get Citizen By ID",
+          "request": {
+            "method": "GET",
+            "header": [{ "key": "Authorization", "value": "Bearer {{citizenToken}}" }],
+            "url": { "raw": "{{baseUrl}}/api/citizens/{{citizenId}}", "host": ["{{baseUrl}}"], "path": ["api","citizens","{{citizenId}}"] }
+          }
+        },
+        {
+          "name": "Get Citizen By User ID",
+          "request": {
+            "method": "GET",
+            "header": [{ "key": "Authorization", "value": "Bearer {{citizenToken}}" }],
+            "url": { "raw": "{{baseUrl}}/api/citizens/user/{{userId}}", "host": ["{{baseUrl}}"], "path": ["api","citizens","user","{{userId}}"] }
+          }
+        },
+        {
+          "name": "Update Citizen Profile",
+          "request": {
+            "method": "PUT",
+            "header": [
+              { "key": "Authorization", "value": "Bearer {{citizenToken}}" },
+              { "key": "Content-Type", "value": "application/json" }
+            ],
+            "url": { "raw": "{{baseUrl}}/api/citizens/{{citizenId}}", "host": ["{{baseUrl}}"], "path": ["api","citizens","{{citizenId}}"] },
+            "body": {
+              "mode": "raw",
+              "raw": "{\n  \"userId\": 2,\n  \"name\": \"John Citizen Updated\",\n  \"dob\": \"1990-05-15\",\n  \"gender\": \"Male\",\n  \"address\": \"456 New Street, Chennai\",\n  \"contactInfo\": \"+91 8888888888\"\n}"
+            }
+          }
+        },
+        {
+          "name": "Add Citizen Document",
+          "request": {
+            "method": "POST",
+            "header": [
+              { "key": "Authorization", "value": "Bearer {{citizenToken}}" },
+              { "key": "Content-Type", "value": "application/json" }
+            ],
+            "url": { "raw": "{{baseUrl}}/api/citizens/{{citizenId}}/documents", "host": ["{{baseUrl}}"], "path": ["api","citizens","{{citizenId}}","documents"] },
+            "body": {
+              "mode": "raw",
+              "raw": "{\n  \"docType\": \"ID_PROOF\",\n  \"fileUri\": \"https://drive.google.com/file/d/your-file-id\"\n}"
+            },
+            "description": "docType options: PETITION, EVIDENCE, ORDER, ID_PROOF, LEGAL_DOC"
+          }
+        },
+        {
+          "name": "Add Citizen Document — LEGAL_DOC",
+          "request": {
+            "method": "POST",
+            "header": [
+              { "key": "Authorization", "value": "Bearer {{citizenToken}}" },
+              { "key": "Content-Type", "value": "application/json" }
+            ],
+            "url": { "raw": "{{baseUrl}}/api/citizens/{{citizenId}}/documents", "host": ["{{baseUrl}}"], "path": ["api","citizens","{{citizenId}}","documents"] },
+            "body": {
+              "mode": "raw",
+              "raw": "{\n  \"docType\": \"LEGAL_DOC\",\n  \"fileUri\": \"https://drive.google.com/file/d/your-legal-doc-id\"\n}"
+            }
+          }
+        },
+        {
+          "name": "Get Citizen Documents",
+          "request": {
+            "method": "GET",
+            "header": [{ "key": "Authorization", "value": "Bearer {{citizenToken}}" }],
+            "url": { "raw": "{{baseUrl}}/api/citizens/{{citizenId}}/documents", "host": ["{{baseUrl}}"], "path": ["api","citizens","{{citizenId}}","documents"] }
+          }
+        },
+        {
+          "name": "Verify Citizen Document — VERIFIED (Clerk)",
+          "request": {
+            "method": "PATCH",
+            "header": [{ "key": "Authorization", "value": "Bearer {{clerkToken}}" }],
+            "url": {
+              "raw": "{{baseUrl}}/api/citizens/{{citizenId}}/documents/{{documentId}}/verify?status=VERIFIED",
+              "host": ["{{baseUrl}}"], "path": ["api","citizens","{{citizenId}}","documents","{{documentId}}","verify"],
+              "query": [{ "key": "status", "value": "VERIFIED" }]
+            }
+          }
+        },
+        {
+          "name": "Verify Citizen Document — REJECTED (Clerk)",
+          "request": {
+            "method": "PATCH",
+            "header": [{ "key": "Authorization", "value": "Bearer {{clerkToken}}" }],
+            "url": {
+              "raw": "{{baseUrl}}/api/citizens/{{citizenId}}/documents/{{documentId}}/verify?status=REJECTED",
+              "host": ["{{baseUrl}}"], "path": ["api","citizens","{{citizenId}}","documents","{{documentId}}","verify"],
+              "query": [{ "key": "status", "value": "REJECTED" }]
+            }
+          }
+        }
+      ]
+    },
+
+    {
+      "name": "04 — Case Filing & Management",
+      "item": [
+        {
+          "name": "File New Case — No Lawyer (Clerk assigns later)",
+          "request": {
+            "method": "POST",
+            "header": [
+              { "key": "Authorization", "value": "Bearer {{citizenToken}}" },
+              { "key": "Content-Type", "value": "application/json" }
+            ],
+            "url": { "raw": "{{baseUrl}}/api/cases", "host": ["{{baseUrl}}"], "path": ["api","cases"] },
+            "body": {
+              "mode": "raw",
+              "raw": "{\n  \"citizenId\": 1,\n  \"title\": \"Property Dispute — John vs State\",\n  \"description\": \"Disputed land ownership in Survey No. 45, Chennai\"\n}"
+            },
+            "description": "No lawyerId — clerk will assign lawyer later via assign-lawyer endpoint.\nNotification sent to all clerks automatically."
+          }
+        },
+        {
+          "name": "File New Case — With Lawyer (citizen knows lawyer)",
+          "request": {
+            "method": "POST",
+            "header": [
+              { "key": "Authorization", "value": "Bearer {{citizenToken}}" },
+              { "key": "Content-Type", "value": "application/json" }
+            ],
+            "url": { "raw": "{{baseUrl}}/api/cases", "host": ["{{baseUrl}}"], "path": ["api","cases"] },
+            "body": {
+              "mode": "raw",
+              "raw": "{\n  \"citizenId\": 1,\n  \"lawyerId\": 3,\n  \"title\": \"Divorce Proceedings — Jane Doe\",\n  \"description\": \"Mutual divorce filing under Section 13B\"\n}"
+            },
+            "description": "Citizen already knows the lawyer — lawyer gets notified immediately at filing time. No clerk assignment needed."
+          }
+        },
+        {
+          "name": "Get All Cases",
+          "request": {
+            "method": "GET",
+            "header": [{ "key": "Authorization", "value": "Bearer {{adminToken}}" }],
+            "url": { "raw": "{{baseUrl}}/api/cases", "host": ["{{baseUrl}}"], "path": ["api","cases"] }
+          }
+        },
+        {
+          "name": "Get Case By ID",
+          "request": {
+            "method": "GET",
+            "header": [{ "key": "Authorization", "value": "Bearer {{citizenToken}}" }],
+            "url": { "raw": "{{baseUrl}}/api/cases/{{caseId}}", "host": ["{{baseUrl}}"], "path": ["api","cases","{{caseId}}"] }
+          }
+        },
+        {
+          "name": "Get Cases By Citizen",
+          "request": {
+            "method": "GET",
+            "header": [{ "key": "Authorization", "value": "Bearer {{citizenToken}}" }],
+            "url": { "raw": "{{baseUrl}}/api/cases/citizen/{{citizenId}}", "host": ["{{baseUrl}}"], "path": ["api","cases","citizen","{{citizenId}}"] }
+          }
+        },
+        {
+          "name": "Get Cases By Lawyer",
+          "request": {
+            "method": "GET",
+            "header": [{ "key": "Authorization", "value": "Bearer {{lawyerToken}}" }],
+            "url": { "raw": "{{baseUrl}}/api/cases/lawyer/{{userId}}", "host": ["{{baseUrl}}"], "path": ["api","cases","lawyer","{{userId}}"] }
+          }
+        },
+        {
+          "name": "Get Cases By Status — FILED",
+          "request": {
+            "method": "GET",
+            "header": [{ "key": "Authorization", "value": "Bearer {{clerkToken}}" }],
+            "url": { "raw": "{{baseUrl}}/api/cases/status/FILED", "host": ["{{baseUrl}}"], "path": ["api","cases","status","FILED"] },
+            "description": "Status options: FILED, UNDER_REVIEW, ACTIVE, HEARING_SCHEDULED, JUDGMENT_PENDING, CLOSED, DISMISSED"
+          }
+        },
+        {
+          "name": "Assign Lawyer to Case (Clerk/Admin)",
+          "request": {
+            "method": "PATCH",
+            "header": [{ "key": "Authorization", "value": "Bearer {{clerkToken}}" }],
+            "url": {
+              "raw": "{{baseUrl}}/api/cases/{{caseId}}/assign-lawyer?lawyerId=3",
+              "host": ["{{baseUrl}}"], "path": ["api","cases","{{caseId}}","assign-lawyer"],
+              "query": [{ "key": "lawyerId", "value": "3" }]
+            },
+            "description": "Assigns a lawyer to the case. Automatically sends notification to:\n- The assigned lawyer\n- The citizen"
+          }
+        },
+        {
+          "name": "Assign Judge to Case (Clerk/Admin)",
+          "request": {
+            "method": "PATCH",
+            "header": [{ "key": "Authorization", "value": "Bearer {{clerkToken}}" }],
+            "url": {
+              "raw": "{{baseUrl}}/api/cases/{{caseId}}/assign-judge?judgeId=4",
+              "host": ["{{baseUrl}}"], "path": ["api","cases","{{caseId}}","assign-judge"],
+              "query": [{ "key": "judgeId", "value": "4" }]
+            },
+            "description": "Assigns a judge to the case. Automatically sends notification to the judge."
+          }
+        },
+        {
+          "name": "Update Case Status — UNDER_REVIEW",
+          "request": {
+            "method": "PATCH",
+            "header": [{ "key": "Authorization", "value": "Bearer {{clerkToken}}" }],
+            "url": {
+              "raw": "{{baseUrl}}/api/cases/{{caseId}}/status?status=UNDER_REVIEW",
+              "host": ["{{baseUrl}}"], "path": ["api","cases","{{caseId}}","status"],
+              "query": [{ "key": "status", "value": "UNDER_REVIEW" }]
+            }
+          }
+        },
+        {
+          "name": "Update Case Status — ACTIVE",
+          "request": {
+            "method": "PATCH",
+            "header": [{ "key": "Authorization", "value": "Bearer {{clerkToken}}" }],
+            "url": {
+              "raw": "{{baseUrl}}/api/cases/{{caseId}}/status?status=ACTIVE",
+              "host": ["{{baseUrl}}"], "path": ["api","cases","{{caseId}}","status"],
+              "query": [{ "key": "status", "value": "ACTIVE" }]
+            }
+          }
+        },
+        {
+          "name": "Update Case Status — DISMISSED",
+          "request": {
+            "method": "PATCH",
+            "header": [{ "key": "Authorization", "value": "Bearer {{judgeToken}}" }],
+            "url": {
+              "raw": "{{baseUrl}}/api/cases/{{caseId}}/status?status=DISMISSED",
+              "host": ["{{baseUrl}}"], "path": ["api","cases","{{caseId}}","status"],
+              "query": [{ "key": "status", "value": "DISMISSED" }]
+            }
+          }
+        },
+        {
+          "name": "Add Case Document — PETITION",
+          "request": {
+            "method": "POST",
+            "header": [
+              { "key": "Authorization", "value": "Bearer {{citizenToken}}" },
+              { "key": "Content-Type", "value": "application/json" }
+            ],
+            "url": { "raw": "{{baseUrl}}/api/cases/{{caseId}}/documents", "host": ["{{baseUrl}}"], "path": ["api","cases","{{caseId}}","documents"] },
+            "body": {
+              "mode": "raw",
+              "raw": "{\n  \"docType\": \"PETITION\",\n  \"fileUri\": \"https://drive.google.com/file/d/petition-file-id\"\n}"
+            },
+            "description": "docType options: PETITION, EVIDENCE, ORDER, ID_PROOF, LEGAL_DOC"
+          }
+        },
+        {
+          "name": "Add Case Document — EVIDENCE",
+          "request": {
+            "method": "POST",
+            "header": [
+              { "key": "Authorization", "value": "Bearer {{lawyerToken}}" },
+              { "key": "Content-Type", "value": "application/json" }
+            ],
+            "url": { "raw": "{{baseUrl}}/api/cases/{{caseId}}/documents", "host": ["{{baseUrl}}"], "path": ["api","cases","{{caseId}}","documents"] },
+            "body": {
+              "mode": "raw",
+              "raw": "{\n  \"docType\": \"EVIDENCE\",\n  \"fileUri\": \"https://drive.google.com/file/d/evidence-file-id\"\n}"
+            }
+          }
+        },
+        {
+          "name": "Get Case Documents",
+          "request": {
+            "method": "GET",
+            "header": [{ "key": "Authorization", "value": "Bearer {{citizenToken}}" }],
+            "url": { "raw": "{{baseUrl}}/api/cases/{{caseId}}/documents", "host": ["{{baseUrl}}"], "path": ["api","cases","{{caseId}}","documents"] }
+          }
+        },
+        {
+          "name": "Verify Case Document — VERIFIED (Clerk)",
+          "request": {
+            "method": "PATCH",
+            "header": [{ "key": "Authorization", "value": "Bearer {{clerkToken}}" }],
+            "url": {
+              "raw": "{{baseUrl}}/api/cases/{{caseId}}/documents/{{documentId}}/verify?status=VERIFIED",
+              "host": ["{{baseUrl}}"], "path": ["api","cases","{{caseId}}","documents","{{documentId}}","verify"],
+              "query": [{ "key": "status", "value": "VERIFIED" }]
+            }
+          }
+        }
+      ]
+    },
+
+    {
+      "name": "05 — Hearing Scheduling",
+      "item": [
+        {
+          "name": "Schedule Hearing",
+          "request": {
+            "method": "POST",
+            "header": [
+              { "key": "Authorization", "value": "Bearer {{clerkToken}}" },
+              { "key": "Content-Type", "value": "application/json" }
+            ],
+            "url": { "raw": "{{baseUrl}}/api/hearings", "host": ["{{baseUrl}}"], "path": ["api","hearings"] },
+            "body": {
+              "mode": "raw",
+              "raw": "{\n  \"caseId\": 1,\n  \"judgeId\": 4,\n  \"date\": \"2025-08-15\",\n  \"time\": \"10:00:00\"\n}"
+            }
+          }
+        },
+        {
+          "name": "Get All Hearings",
+          "request": {
+            "method": "GET",
+            "header": [{ "key": "Authorization", "value": "Bearer {{judgeToken}}" }],
+            "url": { "raw": "{{baseUrl}}/api/hearings", "host": ["{{baseUrl}}"], "path": ["api","hearings"] }
+          }
+        },
+        {
+          "name": "Get Hearing By ID",
+          "request": {
+            "method": "GET",
+            "header": [{ "key": "Authorization", "value": "Bearer {{judgeToken}}" }],
+            "url": { "raw": "{{baseUrl}}/api/hearings/{{hearingId}}", "host": ["{{baseUrl}}"], "path": ["api","hearings","{{hearingId}}"] }
+          }
+        },
+        {
+          "name": "Get Hearings By Case",
+          "request": {
+            "method": "GET",
+            "header": [{ "key": "Authorization", "value": "Bearer {{citizenToken}}" }],
+            "url": { "raw": "{{baseUrl}}/api/hearings/case/{{caseId}}", "host": ["{{baseUrl}}"], "path": ["api","hearings","case","{{caseId}}"] }
+          }
+        },
+        {
+          "name": "Get Hearings By Judge",
+          "request": {
+            "method": "GET",
+            "header": [{ "key": "Authorization", "value": "Bearer {{judgeToken}}" }],
+            "url": { "raw": "{{baseUrl}}/api/hearings/judge/{{userId}}", "host": ["{{baseUrl}}"], "path": ["api","hearings","judge","{{userId}}"] }
+          }
+        },
+        {
+          "name": "Update Hearing Status — IN_PROGRESS",
+          "request": {
+            "method": "PATCH",
+            "header": [{ "key": "Authorization", "value": "Bearer {{judgeToken}}" }],
+            "url": {
+              "raw": "{{baseUrl}}/api/hearings/{{hearingId}}/status?status=IN_PROGRESS",
+              "host": ["{{baseUrl}}"], "path": ["api","hearings","{{hearingId}}","status"],
+              "query": [{ "key": "status", "value": "IN_PROGRESS" }]
+            },
+            "description": "Status options: SCHEDULED, IN_PROGRESS, COMPLETED, ADJOURNED, CANCELLED"
+          }
+        },
+        {
+          "name": "Update Hearing Status — COMPLETED",
+          "request": {
+            "method": "PATCH",
+            "header": [{ "key": "Authorization", "value": "Bearer {{judgeToken}}" }],
+            "url": {
+              "raw": "{{baseUrl}}/api/hearings/{{hearingId}}/status?status=COMPLETED",
+              "host": ["{{baseUrl}}"], "path": ["api","hearings","{{hearingId}}","status"],
+              "query": [{ "key": "status", "value": "COMPLETED" }]
+            }
+          }
+        },
+        {
+          "name": "Update Hearing Status — ADJOURNED",
+          "request": {
+            "method": "PATCH",
+            "header": [{ "key": "Authorization", "value": "Bearer {{judgeToken}}" }],
+            "url": {
+              "raw": "{{baseUrl}}/api/hearings/{{hearingId}}/status?status=ADJOURNED",
+              "host": ["{{baseUrl}}"], "path": ["api","hearings","{{hearingId}}","status"],
+              "query": [{ "key": "status", "value": "ADJOURNED" }]
+            }
+          }
+        },
+        {
+          "name": "Add Proceeding Notes",
+          "request": {
+            "method": "POST",
+            "header": [
+              { "key": "Authorization", "value": "Bearer {{judgeToken}}" },
+              { "key": "Content-Type", "value": "application/json" }
+            ],
+            "url": { "raw": "{{baseUrl}}/api/hearings/{{hearingId}}/proceedings", "host": ["{{baseUrl}}"], "path": ["api","hearings","{{hearingId}}","proceedings"] },
+            "body": {
+              "mode": "raw",
+              "raw": "{\n  \"notes\": \"Both parties presented arguments. Plaintiff's lawyer requested additional time to submit evidence. Next hearing scheduled.\",\n  \"status\": \"IN_PROGRESS\"\n}"
+            }
+          }
+        },
+        {
+          "name": "Get Proceedings By Hearing",
+          "request": {
+            "method": "GET",
+            "header": [{ "key": "Authorization", "value": "Bearer {{judgeToken}}" }],
+            "url": { "raw": "{{baseUrl}}/api/hearings/{{hearingId}}/proceedings", "host": ["{{baseUrl}}"], "path": ["api","hearings","{{hearingId}}","proceedings"] }
+          }
+        }
+      ]
+    },
+
+    {
+      "name": "06 — Judgment & Court Orders",
+      "item": [
+        {
+          "name": "Record Judgment — DRAFT",
+          "request": {
+            "method": "POST",
+            "header": [
+              { "key": "Authorization", "value": "Bearer {{judgeToken}}" },
+              { "key": "Content-Type", "value": "application/json" }
+            ],
+            "url": { "raw": "{{baseUrl}}/api/judgments", "host": ["{{baseUrl}}"], "path": ["api","judgments"] },
+            "body": {
+              "mode": "raw",
+              "raw": "{\n  \"caseId\": 1,\n  \"judgeId\": 4,\n  \"summary\": \"After reviewing all evidence, the court finds in favour of the petitioner. Property ownership is granted to the plaintiff based on registered deed No. 4567.\"\n}"
+            },
+            "description": "Creates judgment in DRAFT status. Use finalize endpoint to make it FINAL and close the case."
+          }
+        },
+        {
+          "name": "Get All Judgments",
+          "request": {
+            "method": "GET",
+            "header": [{ "key": "Authorization", "value": "Bearer {{judgeToken}}" }],
+            "url": { "raw": "{{baseUrl}}/api/judgments", "host": ["{{baseUrl}}"], "path": ["api","judgments"] }
+          }
+        },
+        {
+          "name": "Get Judgment By ID",
+          "request": {
+            "method": "GET",
+            "header": [{ "key": "Authorization", "value": "Bearer {{citizenToken}}" }],
+            "url": { "raw": "{{baseUrl}}/api/judgments/{{judgmentId}}", "host": ["{{baseUrl}}"], "path": ["api","judgments","{{judgmentId}}"] }
+          }
+        },
+        {
+          "name": "Get Judgments By Case",
+          "request": {
+            "method": "GET",
+            "header": [{ "key": "Authorization", "value": "Bearer {{citizenToken}}" }],
+            "url": { "raw": "{{baseUrl}}/api/judgments/case/{{caseId}}", "host": ["{{baseUrl}}"], "path": ["api","judgments","case","{{caseId}}"] }
+          }
+        },
+        {
+          "name": "Finalize Judgment (FINAL — closes case)",
+          "request": {
+            "method": "PATCH",
+            "header": [{ "key": "Authorization", "value": "Bearer {{judgeToken}}" }],
+            "url": { "raw": "{{baseUrl}}/api/judgments/{{judgmentId}}/finalize", "host": ["{{baseUrl}}"], "path": ["api","judgments","{{judgmentId}}","finalize"] },
+            "description": "Changes judgment status from DRAFT to FINAL. This automatically closes the case (status → CLOSED)."
+          }
+        },
+        {
+          "name": "Issue Court Order",
+          "request": {
+            "method": "POST",
+            "header": [
+              { "key": "Authorization", "value": "Bearer {{judgeToken}}" },
+              { "key": "Content-Type", "value": "application/json" }
+            ],
+            "url": { "raw": "{{baseUrl}}/api/court-orders", "host": ["{{baseUrl}}"], "path": ["api","court-orders"] },
+            "body": {
+              "mode": "raw",
+              "raw": "{\n  \"caseId\": 1,\n  \"judgeId\": 4,\n  \"description\": \"The defendant is ordered to vacate the disputed property within 30 days from the date of this order.\"\n}"
+            }
+          }
+        },
+        {
+          "name": "Get All Court Orders",
+          "request": {
+            "method": "GET",
+            "header": [{ "key": "Authorization", "value": "Bearer {{judgeToken}}" }],
+            "url": { "raw": "{{baseUrl}}/api/court-orders", "host": ["{{baseUrl}}"], "path": ["api","court-orders"] }
+          }
+        },
+        {
+          "name": "Get Court Orders By Case",
+          "request": {
+            "method": "GET",
+            "header": [{ "key": "Authorization", "value": "Bearer {{citizenToken}}" }],
+            "url": { "raw": "{{baseUrl}}/api/court-orders/case/{{caseId}}", "host": ["{{baseUrl}}"], "path": ["api","court-orders","case","{{caseId}}"] }
+          }
+        },
+        {
+          "name": "Update Court Order Status — SERVED",
+          "request": {
+            "method": "PATCH",
+            "header": [{ "key": "Authorization", "value": "Bearer {{judgeToken}}" }],
+            "url": {
+              "raw": "{{baseUrl}}/api/court-orders/1/status?status=SERVED",
+              "host": ["{{baseUrl}}"], "path": ["api","court-orders","1","status"],
+              "query": [{ "key": "status", "value": "SERVED" }]
+            },
+            "description": "Status options: ACTIVE, SERVED, EXPIRED"
+          }
+        }
+      ]
+    },
+
+    {
+      "name": "07 — Compliance & Audits",
+      "item": [
+        {
+          "name": "Create Compliance Record — CASE",
+          "request": {
+            "method": "POST",
+            "header": [
+              { "key": "Authorization", "value": "Bearer {{adminToken}}" },
+              { "key": "Content-Type", "value": "application/json" }
+            ],
+            "url": { "raw": "{{baseUrl}}/api/compliance", "host": ["{{baseUrl}}"], "path": ["api","compliance"] },
+            "body": {
+              "mode": "raw",
+              "raw": "{\n  \"entityId\": 1,\n  \"type\": \"CASE\",\n  \"result\": \"COMPLIANT\",\n  \"notes\": \"Case filed within jurisdiction. All documents verified.\"\n}"
+            },
+            "description": "type options: CASE, HEARING, JUDGMENT\nresult options: COMPLIANT, NON_COMPLIANT, PENDING"
+          }
+        },
+        {
+          "name": "Create Compliance Record — NON_COMPLIANT",
+          "request": {
+            "method": "POST",
+            "header": [
+              { "key": "Authorization", "value": "Bearer {{adminToken}}" },
+              { "key": "Content-Type", "value": "application/json" }
+            ],
+            "url": { "raw": "{{baseUrl}}/api/compliance", "host": ["{{baseUrl}}"], "path": ["api","compliance"] },
+            "body": {
+              "mode": "raw",
+              "raw": "{\n  \"entityId\": 2,\n  \"type\": \"HEARING\",\n  \"result\": \"NON_COMPLIANT\",\n  \"notes\": \"Hearing was conducted without proper notice to the defendant.\"\n}"
+            }
+          }
+        },
+        {
+          "name": "Get All Compliance Records",
+          "request": {
+            "method": "GET",
+            "header": [{ "key": "Authorization", "value": "Bearer {{adminToken}}" }],
+            "url": { "raw": "{{baseUrl}}/api/compliance", "host": ["{{baseUrl}}"], "path": ["api","compliance"] }
+          }
+        },
+        {
+          "name": "Update Compliance Record",
+          "request": {
+            "method": "PATCH",
+            "header": [
+              { "key": "Authorization", "value": "Bearer {{adminToken}}" },
+              { "key": "Content-Type", "value": "application/json" }
+            ],
+            "url": { "raw": "{{baseUrl}}/api/compliance/1", "host": ["{{baseUrl}}"], "path": ["api","compliance","1"] },
+            "body": {
+              "mode": "raw",
+              "raw": "{\n  \"entityId\": 1,\n  \"type\": \"CASE\",\n  \"result\": \"COMPLIANT\",\n  \"notes\": \"Updated after re-review. All requirements met.\"\n}"
+            }
+          }
+        },
+        {
+          "name": "Create Audit",
+          "request": {
+            "method": "POST",
+            "header": [
+              { "key": "Authorization", "value": "Bearer {{adminToken}}" },
+              { "key": "Content-Type", "value": "application/json" }
+            ],
+            "url": { "raw": "{{baseUrl}}/api/audits", "host": ["{{baseUrl}}"], "path": ["api","audits"] },
+            "body": {
+              "mode": "raw",
+              "raw": "{\n  \"officerId\": 1,\n  \"scope\": \"Q2 2025 Case Management Audit\",\n  \"findings\": \"10 cases reviewed. 8 compliant, 2 pending re-evaluation.\"\n}"
+            }
+          }
+        },
+        {
+          "name": "Get All Audits",
+          "request": {
+            "method": "GET",
+            "header": [{ "key": "Authorization", "value": "Bearer {{adminToken}}" }],
+            "url": { "raw": "{{baseUrl}}/api/audits", "host": ["{{baseUrl}}"], "path": ["api","audits"] }
+          }
+        },
+        {
+          "name": "Update Audit Status — CLOSED",
+          "request": {
+            "method": "PATCH",
+            "header": [{ "key": "Authorization", "value": "Bearer {{adminToken}}" }],
+            "url": {
+              "raw": "{{baseUrl}}/api/audits/1/status?status=CLOSED",
+              "host": ["{{baseUrl}}"], "path": ["api","audits","1","status"],
+              "query": [{ "key": "status", "value": "CLOSED" }]
+            },
+            "description": "Status options: OPEN, REVIEW, CLOSED"
+          }
+        }
+      ]
+    },
+
+    {
+      "name": "08 — Reports & Analytics",
+      "item": [
+        {
+          "name": "Generate Report — CASE",
+          "request": {
+            "method": "POST",
+            "header": [
+              { "key": "Authorization", "value": "Bearer {{adminToken}}" },
+              { "key": "Content-Type", "value": "application/json" }
+            ],
+            "url": { "raw": "{{baseUrl}}/api/reports/generate", "host": ["{{baseUrl}}"], "path": ["api","reports","generate"] },
+            "body": {
+              "mode": "raw",
+              "raw": "{\n  \"scope\": \"CASE\",\n  \"metrics\": \"{\\\"totalCases\\\": 100, \\\"closedCases\\\": 75, \\\"pendingCases\\\": 25}\",\n  \"generatedBy\": 1\n}"
+            },
+            "description": "scope options: CASE, HEARING, JUDGMENT, COMPLIANCE"
+          }
+        },
+        {
+          "name": "Generate Report — HEARING",
+          "request": {
+            "method": "POST",
+            "header": [
+              { "key": "Authorization", "value": "Bearer {{adminToken}}" },
+              { "key": "Content-Type", "value": "application/json" }
+            ],
+            "url": { "raw": "{{baseUrl}}/api/reports/generate", "host": ["{{baseUrl}}"], "path": ["api","reports","generate"] },
+            "body": {
+              "mode": "raw",
+              "raw": "{\n  \"scope\": \"HEARING\",\n  \"metrics\": \"{\\\"totalHearings\\\": 50, \\\"completed\\\": 40, \\\"adjourned\\\": 10}\",\n  \"generatedBy\": 1\n}"
+            }
+          }
+        },
+        {
+          "name": "Get All Reports",
+          "request": {
+            "method": "GET",
+            "header": [{ "key": "Authorization", "value": "Bearer {{adminToken}}" }],
+            "url": { "raw": "{{baseUrl}}/api/reports", "host": ["{{baseUrl}}"], "path": ["api","reports"] }
+          }
+        },
+        {
+          "name": "Get Reports By Scope — CASE",
+          "request": {
+            "method": "GET",
+            "header": [{ "key": "Authorization", "value": "Bearer {{adminToken}}" }],
+            "url": { "raw": "{{baseUrl}}/api/reports/scope/CASE", "host": ["{{baseUrl}}"], "path": ["api","reports","scope","CASE"] }
+          }
+        }
+      ]
+    },
+
+    {
+      "name": "09 — Notifications",
+      "item": [
+        {
+          "name": "Send Notification (Manual)",
+          "request": {
+            "method": "POST",
+            "header": [
+              { "key": "Authorization", "value": "Bearer {{adminToken}}" },
+              { "key": "Content-Type", "value": "application/json" }
+            ],
+            "url": { "raw": "{{baseUrl}}/api/notifications", "host": ["{{baseUrl}}"], "path": ["api","notifications"] },
+            "body": {
+              "mode": "raw",
+              "raw": "{\n  \"userId\": 2,\n  \"entityId\": 1,\n  \"message\": \"Your case has been reviewed and a lawyer has been assigned.\",\n  \"category\": \"CASE\"\n}"
+            },
+            "description": "category options: CASE, HEARING, JUDGMENT, COMPLIANCE\nMost notifications are sent automatically by the system."
+          }
+        },
+        {
+          "name": "Get Notifications For User",
+          "request": {
+            "method": "GET",
+            "header": [{ "key": "Authorization", "value": "Bearer {{citizenToken}}" }],
+            "url": { "raw": "{{baseUrl}}/api/notifications/user/{{userId}}", "host": ["{{baseUrl}}"], "path": ["api","notifications","user","{{userId}}"] }
+          }
+        },
+        {
+          "name": "Get Unread Count For User",
+          "request": {
+            "method": "GET",
+            "header": [{ "key": "Authorization", "value": "Bearer {{citizenToken}}" }],
+            "url": { "raw": "{{baseUrl}}/api/notifications/user/{{userId}}/unread-count", "host": ["{{baseUrl}}"], "path": ["api","notifications","user","{{userId}}","unread-count"] }
+          }
+        },
+        {
+          "name": "Mark Notification As Read",
+          "request": {
+            "method": "PATCH",
+            "header": [{ "key": "Authorization", "value": "Bearer {{citizenToken}}" }],
+            "url": { "raw": "{{baseUrl}}/api/notifications/1/read", "host": ["{{baseUrl}}"], "path": ["api","notifications","1","read"] }
+          }
+        },
+        {
+          "name": "Mark All Notifications As Read",
+          "request": {
+            "method": "PATCH",
+            "header": [{ "key": "Authorization", "value": "Bearer {{citizenToken}}" }],
+            "url": { "raw": "{{baseUrl}}/api/notifications/user/{{userId}}/read-all", "host": ["{{baseUrl}}"], "path": ["api","notifications","user","{{userId}}","read-all"] }
+          }
+        }
+      ]
+    },
+
+    {
+      "name": "10 — Audit Logs",
+      "item": [
+        {
+          "name": "Get All Audit Logs",
+          "request": {
+            "method": "GET",
+            "header": [{ "key": "Authorization", "value": "Bearer {{adminToken}}" }],
+            "url": { "raw": "{{baseUrl}}/api/audit-logs", "host": ["{{baseUrl}}"], "path": ["api","audit-logs"] }
+          }
+        },
+        {
+          "name": "Get Audit Logs By User",
+          "request": {
+            "method": "GET",
+            "header": [{ "key": "Authorization", "value": "Bearer {{adminToken}}" }],
+            "url": { "raw": "{{baseUrl}}/api/audit-logs/user/{{userId}}", "host": ["{{baseUrl}}"], "path": ["api","audit-logs","user","{{userId}}"] }
+          }
+        }
+      ]
+    }
+
+  ]
+}
