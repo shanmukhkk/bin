@@ -1,3 +1,4 @@
+[bharath js.pdf](https://github.com/user-attachments/files/26919451/bharath.js.pdf)
 
 Agile (20 Questions)
 What are Agile principles?
