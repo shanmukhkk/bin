@@ -1,3 +1,6 @@
+[ISG Java FSE - Angular Curriculum_v1.1.xlsx](https://github.com/user-attachments/files/27571670/ISG.Java.FSE.-.Angular.Curriculum_v1.1.xlsx)
+[ISG Java FSE - Angular Timetable_v1.0.xlsx](https://github.com/user-attachments/files/27571669/ISG.Java.FSE.-.Angular.Timetable_v1.0.xlsx)
+[ISG Java FSE - Angular Handbook_v1.0.pdf](https://github.com/user-attachments/files/27571667/ISG.Java.FSE.-.Angular.Handbook_v1.0.pdf)
 [bharath js.pdf](https://github.com/user-attachments/files/26919451/bharath.js.pdf)
 
 Agile (20 Questions)
