@@ -1,3 +1,29 @@
+Angular (v16)	Introduction to Angular and Setting Up Environment	Overview of Angular, Setting Up the Development Environment-Installing Angular CLI and Creating a New Angular Project, Angular Project Structure and Files, Running and Building Angular Applications
+	TypeScript Essentials for Angular	Basic Types, Type Annotations, Interfaces and Type Aliases, Functions, Classes, Modules and Imports/Exports, Generics, Union and Intersection Types, Type Assertions and Type Guards, Asynchronous Programming
+	Angular Components	Creating Components, Component Interaction - Data Binding: Property Binding, Event Binding, and Two-way Binding, Component Lifecycle Hooks (ngOnInit, ngOnChanges, etc.), Parent-Child Component Communication (@Input and @Output)
+	Directives and Pipes	Built-in Directives - Structural Directives: *ngIf, *ngFor, and *ngSwitch, Attribute Directives: ngClass, ngStyle, ngModel, Custom Directives, Pipes - Built-in Pipes (e.g., date, uppercase, currency), Creating Custom Pipes
+	Angular Forms	Template-driven Forms - Basics of Template-driven Forms and Form Validation, Binding Data with ngModel and Handling Form Submission Reactive Forms - Setting Up Reactive Forms with FormBuilder, Form Control, FormGroup, and FormArray, Reactive Form Validation (Built-in Validators, Custom Validators)
+	Dependency Injection and Services	Introduction to Dependency Injection, Creating and Using Services, Hierarchical Dependency Injection
+	Angular Routing and Navigation	Setting Up Routing - Configuring Routes in app-routing.module.ts, Route Parameters and Query Parameters, Nested Routes and Lazy Loading Modules
+	Router Features	Router Guards: CanActivate, CanDeactivate, Resolve, Router Events and Navigation Lifecycle, Passing Data Between Routes
+	HTTP Client and APIs	Using Angular HTTP Client - Setting Up HTTPClientModule and Making HTTP Requests, GET, POST, PUT, DELETE Requests with HTTP Client , Handling API Responses - Observables and Promises in Angular, Error Handling and Retry Strategies, Interceptors for Modifying Requests and Responses
+	State Management in Angular	Introduction to State Management, Using Services for State Management, NgRx for Advanced State Management
+	Reactive Programming with RxJS	RxJS Observables and Operators, Reactive Patterns in Angular
+	Testing Angular Applications	Unit Testing with Jasmine and Karma, Component and Service Testing, End-to-End (E2E) Testing
+	Introduction to Node.js	Overview of Node.js and its role in web development, Node.js architecture: Single-threaded, non-blocking I/O, Node.js Module System - Understanding modules and require(), Exporting and importing modules
+	Core Node.js Modules	File System Module (fs) - Reading and writing files, Basic asynchronous operations with fs (e.g., readFile and writeFile), HTTP Module - Creating a basic HTTP server, Handling simple HTTP requests and responses
+	Asynchronous Programming Basics	Callbacks and Promises - Using callbacks for asynchronous operations, Introduction to Promises and .then() syntax, Async/Await Basics - Using async/await for cleaner asynchronous code
+<img width="1125" height="1596" alt="image" src="https://github.com/user-attachments/assets/c82a5a20-f8f2-4775-b3d9-5c6e723504ee" />
+
+
+
+
+
+
+
+
+
+
 [ISG Java FSE - Angular Curriculum_v1.1.xlsx](https://github.com/user-attachments/files/27571670/ISG.Java.FSE.-.Angular.Curriculum_v1.1.xlsx)
 [ISG Java FSE - Angular Timetable_v1.0.xlsx](https://github.com/user-attachments/files/27571669/ISG.Java.FSE.-.Angular.Timetable_v1.0.xlsx)
 [ISG Java FSE - Angular Handbook_v1.0.pdf](https://github.com/user-attachments/files/27571667/ISG.Java.FSE.-.Angular.Handbook_v1.0.pdf)
