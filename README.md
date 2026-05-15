@@ -1,3 +1,7 @@
+
+[Complete_FullStack_Interview_Guide.pdf](https://github.com/user-attachments/files/27808751/Complete_FullStack_Interview_Guide.pdf)
+
+[Angular_Complete_Guide.pdf](https://github.com/user-attachments/files/27808750/Angular_Complete_Guide.pdf)
 Angular (v16)	Introduction to Angular and Setting Up Environment	Overview of Angular, Setting Up the Development Environment-Installing Angular CLI and Creating a New Angular Project, Angular Project Structure and Files, Running and Building Angular Applications
 	TypeScript Essentials for Angular	Basic Types, Type Annotations, Interfaces and Type Aliases, Functions, Classes, Modules and Imports/Exports, Generics, Union and Intersection Types, Type Assertions and Type Guards, Asynchronous Programming
 	Angular Components	Creating Components, Component Interaction - Data Binding: Property Binding, Event Binding, and Two-way Binding, Component Lifecycle Hooks (ngOnInit, ngOnChanges, etc.), Parent-Child Component Communication (@Input and @Output)
