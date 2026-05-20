@@ -1,3 +1,24 @@
+
+
+
+[JusticeServe_Project_finalllllDocumentation_Elaborated.docx](https://github.com/user-attachments/files/28048272/JusticeServe_Project_finalllllDocumentation_Elaborated.docx)
+
+[FINALISES CORRECTED FLOW CITIZEN.docx](https://github.com/user-attachments/files/28048254/FINALISES.CORRECTED.FLOW.CITIZEN.docx)
+
+[cduvuw.docx](https://github.com/user-attachments/files/28048239/cduvuw.docx)
+
+
+
+
+
+
+
+
+
+
+
+
+
 [JusticeServe_Project_finalllllDocumentation_Elaborated.docx](https://github.com/user-attachments/files/28014171/JusticeServe_Project_finalllllDocumentation_Elaborated.docx)
 
 [Complete_FullStack_Interview_Guide.pdf](https://github.com/user-attachments/files/27808751/Complete_FullStack_Interview_Guide.pdf)
