@@ -1,4 +1,14 @@
+[JusticeServe_Project_finalllllDocumentation_Elaborated.docx](https://github.com/user-attachments/files/28057185/JusticeServe_Project_finalllllDocumentation_Elaborated.docx)
 [JusticeServe_Project_finalllllDocumentation_Elaborated.docx](https://github.com/user-attachments/files/28054147/JusticeServe_Project_finalllllDocumentation_Elaborated.docx)
+
+
+
+
+
+
+
+
+
 
 
 
