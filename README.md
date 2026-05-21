@@ -1,4 +1,9 @@
 
+
+[JusticeServe - Legal Case & Court(o).pdf](https://github.com/user-attachments/files/28091596/JusticeServe.-.Legal.Case.Court.o.pdf)
+
+
+
 [JusticeServe_Project_finalllllDocumentation_Elaborated (1) (1).docx](https://github.com/user-attachments/files/28090591/JusticeServe_Project_finalllllDocumentation_Elaborated.1.1.docx)
 
 
