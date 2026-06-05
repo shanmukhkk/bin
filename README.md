@@ -1,3 +1,4 @@
+[Traing_Session_Details.xlsx](https://github.com/user-attachments/files/28637324/Traing_Session_Details.xlsx)
 
 
 
